@@ -188,22 +188,30 @@ const cards = [
 console.log(cards);
 
 // Mostrare le carte per nome
-function displayCard(array, displayElement) {
+function displayCards(array, displayElement) {
   array.forEach((element) => {
     displayElement.innerHTML += `
     <div>${element.cardName}</div>
     `;
   });
 };
-displayCard(cards, cardList);
 
-// Aggiungere opzioni al filtro power
+// Aggiungere opzioni a filtri
 function addFilterOption(array, filterElement) {
   array.forEach((element) => {
     filterElement.innerHTML += `
     <option value="${element}">${element}</option>
     `;
   });
+};
+
+// Creare elenco carte filtrate per power
+function filterByPower(array, filterValue) {
+  const filteredArray = array.filter((element, index, arr) => {
+    return element.score.power === filterValue;
+  });
+  if (filteredArray) {return filteredArray} else {return displayCards(cards, cardList);
+}
 };
 
 const powerValues = [];
@@ -214,4 +222,18 @@ cards.forEach((element) => {
   powerValues.push(powerValue);
 });
 
+displayCards(cards, cardList);
 addFilterOption(powerValues, powerFilter);
+
+// Mostrare le carte filtrate per power
+$('#powerFilter').change(function () {
+  const value = parseInt($(this).val());
+  const arrayByPower = filterByPower(cards, value);
+
+  cardList.innerHTML = '';
+  if (isNaN(value)) {
+    displayCards(cards, cardList);
+  } else {
+    displayCards(arrayByPower, cardList);
+  };
+});
