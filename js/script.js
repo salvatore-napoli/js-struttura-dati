@@ -1,7 +1,8 @@
+/* PARTE DATI */
 const cardList = document.getElementById('cardList');
 const powerFilter = document.getElementById('powerFilter');
+const cardTypeFilter = document.getElementById('cardTypeFilter');
 
-// SEZIONE DATI
 const fieldCodes = ['W', 'U', 'B', 'R', 'G'];
 
 const cardTypes = [
@@ -32,6 +33,7 @@ const editions = {
 
 };
 
+const powerValues = [1, 2, 3, 4, 5];
 
 const cards = [
 	{
@@ -45,7 +47,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/i.png',
+	  picture: 'images/grizzlybears.png',
 	  cardType: cardTypes[1],
 	  cardObject: 'Bear',
 
@@ -65,128 +67,130 @@ const cards = [
 	},
 
 	{
-	  cardName: 'Card 2',
+	  cardName: 'Realmwalker',
 
 	  cost: {
-	    genericCostNumber: 1,
+	    genericCostNumber: 2,
 	    costFields: [ // colors array con riferimento a fieldCodes
 	      fieldCodes[0],  // 'W',  - un suo riferimento
 	      fieldCodes[2]   // 'B'
 	    ],
 	  },
 
-	  picture: 'images/i.png',
+	  picture: 'images/realmwalker.png',
 	  cardType: cardTypes[1],
-	  cardObject: 'Bear',
+	  cardObject: 'Sorcerer',
 
 	  editionType: editions['BL'],
 
-		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		story: 'blablablablablablabla',
-
-		authorString: 'by Name Surname',
-
-	  score: {
-	    power: 2,  // filtrarlo per power
-	    toughness: 2,
-	  },
-
-		cardColor: 'green',
-	},
-
-	{
-	  cardName: 'Card 3',
-
-	  cost: {
-	    genericCostNumber: 1,
-	    costFields: [ // colors array con riferimento a fieldCodes
-	      fieldCodes[0],  // 'W',  - un suo riferimento
-	      fieldCodes[2]   // 'B'
-	    ],
-	  },
-
-	  picture: 'images/i.png',
-	  cardType: cardTypes[1],
-	  cardObject: 'Bear',
-
-	  editionType: editions['BL'],
-
-		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		story: 'blablablablablablabla',
+		description: 'gthyjtuhgvfgthyrtgfv',
+		story: 'jhgfrtyegbfhty',
 
 		authorString: 'by Name Surname',
 
 	  score: {
 	    power: 3,  // filtrarlo per power
-	    toughness: 2,
+	    toughness: 1,
 	  },
 
-		cardColor: 'green',
+		cardColor: 'red',
 	},
 
 	{
-	  cardName: 'Card 4',
+	  cardName: 'Hammer of Nazahn',
 
 	  cost: {
-	    genericCostNumber: 1,
+	    genericCostNumber: 4,
 	    costFields: [ // colors array con riferimento a fieldCodes
 	      fieldCodes[0],  // 'W',  - un suo riferimento
 	      fieldCodes[2]   // 'B'
 	    ],
 	  },
 
-	  picture: 'images/i.png',
-	  cardType: cardTypes[1],
-	  cardObject: 'Bear',
+	  picture: 'images/hammer.png',
+	  cardType: cardTypes[3],
+	  cardObject: 'Hammer',
 
-	  editionType: editions['BL'],
+	  editionType: editions['SP'],
 
-		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		story: 'blablablablablablabla',
+		description: 'jhytghjhg',
+		story: 'jhgfd',
 
 		authorString: 'by Name Surname',
 
 	  score: {
-	    power: 4,  // filtrarlo per power
-	    toughness: 2,
+	    power: 3,  // filtrarlo per power
+	    toughness: 5,
 	  },
 
 		cardColor: 'green',
 	},
 
 	{
-	  cardName: 'Card 5',
+	  cardName: 'Spell Swindle',
 
 	  cost: {
-	    genericCostNumber: 1,
+	    genericCostNumber: 3,
 	    costFields: [ // colors array con riferimento a fieldCodes
 	      fieldCodes[0],  // 'W',  - un suo riferimento
 	      fieldCodes[2]   // 'B'
 	    ],
 	  },
 
-	  picture: 'images/i.png',
-	  cardType: cardTypes[1],
-	  cardObject: 'Bear',
+	  picture: 'images/swindle.png',
+	  cardType: cardTypes[2],
+	  cardObject: 'Spell',
 
 	  editionType: editions['BL'],
 
-		description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-		story: 'blablablablablablabla',
+		description: 'ujyhyu75hygb',
+		story: 'ujhyyu7yrhgb',
 
 		authorString: 'by Name Surname',
 
 	  score: {
 	    power: 5,  // filtrarlo per power
-	    toughness: 2,
+	    toughness: 4,
 	  },
 
 		cardColor: 'green',
 	},
+
+	{
+	  cardName: 'Snowfield Sinkhole',
+
+	  cost: {
+	    genericCostNumber: 0,
+	    costFields: [ // colors array con riferimento a fieldCodes
+	      fieldCodes[0],  // 'W',  - un suo riferimento
+	      fieldCodes[2]   // 'B'
+	    ],
+	  },
+
+	  picture: 'images/snowfield.png',
+	  cardType: cardTypes[0],
+	  cardObject: 'Snowfield',
+
+	  editionType: editions['SP'],
+
+		description: 'jhghhyrurhyyhgtf',
+		story: 'jhyghty6rthg',
+
+		authorString: 'by Name Surname',
+
+	  score: {
+	    power: 4,  // filtrarlo per power
+	    toughness: 1,
+	  },
+
+		cardColor: 'white',
+	},
 ];
+/* end PARTE DATI */
 
-console.log(cards);
 
+
+/* PARTE LOGICA */
 // Mostrare le carte per nome
 function displayCards(array, displayElement) {
   array.forEach((element) => {
@@ -207,23 +211,24 @@ function addFilterOption(array, filterElement) {
 
 // Creare elenco carte filtrate per power
 function filterByPower(array, filterValue) {
-  const filteredArray = array.filter((element, index, arr) => {
+  return array.filter((element, index, arr) => {
     return element.score.power === filterValue;
   });
-  if (filteredArray) {return filteredArray} else {return displayCards(cards, cardList);
-}
 };
 
-const powerValues = [];
+// Creare elenco carte filtrate per cardType
+function filterByCardType(array, filterValue) {
+  return array.filter((element, index, arr) => {
+    return element.cardType === filterValue;
+  });
+};
+/* end PARTE LOGICA */
 
-cards.forEach((element) => {
-  const powerValue = element.score.power;
 
-  powerValues.push(powerValue);
-});
-
+/* PARTE OUTPUT */
 displayCards(cards, cardList);
 addFilterOption(powerValues, powerFilter);
+addFilterOption(cardTypes, cardTypeFilter);
 
 // Mostrare le carte filtrate per power
 $('#powerFilter').change(function () {
@@ -237,3 +242,17 @@ $('#powerFilter').change(function () {
     displayCards(arrayByPower, cardList);
   };
 });
+
+// Mostrare le carte filtrate per cardType
+$('#cardTypeFilter').change(function () {
+  const value = $(this).val();
+  const arrayByCardType = filterByCardType(cards, value);
+
+  cardList.innerHTML = '';
+  if (value === ' ') {
+    displayCards(cards, cardList);
+  } else {
+    displayCards(arrayByCardType, cardList);
+  };
+});
+/* end PARTE OUTPUT */
