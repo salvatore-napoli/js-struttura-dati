@@ -2,16 +2,17 @@
 const cardList = document.getElementById('cardList');
 const powerFilter = document.getElementById('powerFilter');
 const cardTypeFilter = document.getElementById('cardTypeFilter');
+const cardsContainer = document.getElementById('cardsContainer');
 
 const fieldCodes = ['W', 'U', 'B', 'R', 'G'];
 
 const cardTypes = [
-  'terre',
-  'creature',
-  'incantesimi',
-  'artefatti',
-  'instantanei',
-  'stregonerie'
+  'Terreno',
+  'Creatura',
+  'Incantesimo',
+  'Artefatto',
+  'Istantanea',
+  'Stregoneria'
 ];
 
 // Abbiamo creato un oggetto di oggetti, come riferimento
@@ -47,7 +48,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/grizzlybears.png',
+	  picture: 'https://cantrip.ru/images/arts/Bears.jpg',
 	  cardType: cardTypes[1],
 	  cardObject: 'Bear',
 
@@ -77,7 +78,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/realmwalker.png',
+	  picture: 'https://c1.scryfall.com/file/scryfall-cards/art_crop/front/e/8/e8a0877c-5217-422d-89b8-92f951068693.jpg',
 	  cardType: cardTypes[1],
 	  cardObject: 'Sorcerer',
 
@@ -93,7 +94,7 @@ const cards = [
 	    toughness: 1,
 	  },
 
-		cardColor: 'red',
+		cardColor: 'green',
 	},
 
 	{
@@ -107,7 +108,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/hammer.png',
+	  picture: 'https://64.media.tumblr.com/ea1686e60afa081b72c7caf45eb6b9f9/tumblr_pn3ctdEFuK1xq05xmo1_640.jpg',
 	  cardType: cardTypes[3],
 	  cardObject: 'Hammer',
 
@@ -123,7 +124,7 @@ const cards = [
 	    toughness: 5,
 	  },
 
-		cardColor: 'green',
+		cardColor: 'blue',
 	},
 
 	{
@@ -137,7 +138,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/swindle.png',
+	  picture: 'https://images.magicdeck.app/crops/pxln/7573612c-eded-445f-9bc9-853ffe8be9cd.jpg',
 	  cardType: cardTypes[2],
 	  cardObject: 'Spell',
 
@@ -153,7 +154,7 @@ const cards = [
 	    toughness: 4,
 	  },
 
-		cardColor: 'green',
+		cardColor: 'yellow',
 	},
 
 	{
@@ -167,7 +168,7 @@ const cards = [
 	    ],
 	  },
 
-	  picture: 'images/snowfield.png',
+	  picture: 'https://lh3.googleusercontent.com/proxy/Nfc4MynK3aVCm8ayDo2FlsppbxsC24pcyYYtM8bQTMnNnZzlcvQYPaY1ZhPvdUbMUFwSl-J52d_2nKYmSCy_NxwnHkpGj_R3fM15hq04a14cmAHkGqoZk8Vfz2CUbtMiqf1lO2stcnfNr5Pbw-xZeLb8',
 	  cardType: cardTypes[0],
 	  cardObject: 'Snowfield',
 
@@ -192,7 +193,7 @@ const cards = [
 
 /* PARTE LOGICA */
 // Mostrare le carte per nome
-function displayCards(array, displayElement) {
+function cardsByName(array, displayElement) {
   array.forEach((element) => {
     displayElement.innerHTML += `
     <div>${element.cardName}</div>
@@ -222,37 +223,96 @@ function filterByCardType(array, filterValue) {
     return element.cardType === filterValue;
   });
 };
+
+// Mostrare le carte filtrate per power
+function powerFiltered(displayElement, funToExecute) {
+  $('#powerFilter').change(function () {
+    const value = parseInt($(this).val());
+    const arrayByPower = filterByPower(cards, value);
+
+    displayElement.innerHTML = '';
+    if (isNaN(value)) {
+      funToExecute(cards, displayElement);
+    } else {
+      funToExecute(arrayByPower, displayElement);
+    };
+  });
+};
+
+// Mostrare le carte filtrate per cardType
+function cardTypeFiltered(displayElement, funToExecute) {
+  $('#cardTypeFilter').change(function () {
+    const value = $(this).val();
+    const arrayByCardType = filterByCardType(cards, value);
+
+    displayElement.innerHTML = '';
+    if (value === ' ') {
+      funToExecute(cards, displayElement);
+    } else {
+      funToExecute(arrayByCardType, displayElement);
+    };
+  });
+};
 /* end PARTE LOGICA */
 
 
+
 /* PARTE OUTPUT */
-displayCards(cards, cardList);
+cardsByName(cards, cardList);
 addFilterOption(powerValues, powerFilter);
 addFilterOption(cardTypes, cardTypeFilter);
-
-// Mostrare le carte filtrate per power
-$('#powerFilter').change(function () {
-  const value = parseInt($(this).val());
-  const arrayByPower = filterByPower(cards, value);
-
-  cardList.innerHTML = '';
-  if (isNaN(value)) {
-    displayCards(cards, cardList);
-  } else {
-    displayCards(arrayByPower, cardList);
-  };
-});
-
-// Mostrare le carte filtrate per cardType
-$('#cardTypeFilter').change(function () {
-  const value = $(this).val();
-  const arrayByCardType = filterByCardType(cards, value);
-
-  cardList.innerHTML = '';
-  if (value === ' ') {
-    displayCards(cards, cardList);
-  } else {
-    displayCards(arrayByCardType, cardList);
-  };
-});
+powerFiltered(cardList, cardsByName);
+cardTypeFiltered(cardList, cardsByName);
 /* end PARTE OUTPUT */
+
+
+
+/* ABBELLIMENTO */
+function displayCards(array, displayElement) {
+  array.forEach((element) => {
+    const {cardName, picture, cardType, cardObject, description, story, authorString, cardColor} = element;
+    const costNumber = element.cost.genericCostNumber;
+    const powerValue = element.score.power;
+    const toughnessValue = element.score.toughness;
+
+
+    displayElement.innerHTML += `
+    <div class="cardTemplate">
+      <div class="cardContainer" style="background-color: ${cardColor};">
+  			<div class="cardHeader card-section">
+  				<div class="cardTitle">
+            ${cardName}
+  				</div>
+  				<div class="cardCost">
+            ${costNumber}
+  				</div>
+  			</div>
+  			<div class="cardPicture card-section">
+          <img src="${picture}" />
+  			</div>
+  			<div class="cardTypeObject card-section">
+          ${cardType} — ${cardObject}
+  			</div>
+  			<div class="cardDescript card-section">
+  				<p class="cardDescription">${description}</p>
+  				<p class="cardStory">${story}</p>
+          <div class="cardValues">
+            ${powerValue} / ${toughnessValue}
+          </div>
+  			</div>
+		  </div>
+      <div class="cardFooter">
+        <div class="cardAuthor">
+          ${authorString}
+        </div>
+      </div>
+		</div>
+    `;
+  });
+};
+
+
+displayCards(cards, cardsContainer);
+powerFiltered(cardsContainer, displayCards);
+cardTypeFiltered(cardsContainer, displayCards);
+/* end ABBELLIMENTO */
