@@ -196,3 +196,22 @@ function displayCard(array, displayElement) {
   });
 };
 displayCard(cards, cardList);
+
+// Aggiungere opzioni al filtro power
+function addFilterOption(array, filterElement) {
+  array.forEach((element) => {
+    filterElement.innerHTML += `
+    <option value="${element}">${element}</option>
+    `;
+  });
+};
+
+const powerValues = [];
+
+cards.forEach((element) => {
+  const powerValue = element.score.power;
+
+  powerValues.push(powerValue);
+});
+
+addFilterOption(powerValues, powerFilter);
